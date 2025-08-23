@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "./root";
 import Index from "./routes/telegram";
 import Home from "./routes/telegram/home";
+import Channels from "./routes/telegram/channels";
 import Advertisers from "./routes/telegram/advertisers";
 import Deals from "./routes/telegram/deals";
 
@@ -13,19 +14,23 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/",
+        path: "/tma",
         element: <Index />,
       },
       {
-        path: "home",
+        path: "/tma/home",
         element: <Home />,
       },
       {
-        path: "advertisers",
+        path: "/tma/channels",
+        element: <Channels />,
+      },
+      {
+        path: "/tma/advertisers",
         element: <Advertisers />, 
       },
       {
-        path: "deals",
+        path: "/tma/deals",
         element: <Deals />,
       }
     ],
