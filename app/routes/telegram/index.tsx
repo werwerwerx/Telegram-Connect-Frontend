@@ -29,7 +29,7 @@ export default function Index() {
           i18n.changeLanguage("en");
         }
       }
-      navigate("/home", {
+      navigate("/tma/presentation", {
         replace: true
       })
     }

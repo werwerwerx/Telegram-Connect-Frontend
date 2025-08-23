@@ -9,6 +9,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@radix-ui/react-scroll-area": "^1.2.10",
     "@radix-ui/react-slot": "^1.2.3",
     "@telegram-apps/sdk-react": "^3.3.6",
     "class-variance-authority": "^0.7.1",
@@ -30,6 +31,7 @@
     "tw-animate-css": "^1.3.7",
     "typescript": "^5.8.3",
     "vite": "^6.3.3",
+    "vite-plugin-compression": "^0.5.1",
     "vite-plugin-single-spa": "^1.1.0",
     "vite-tsconfig-paths": "^5.1.4"
   }

@@ -7,6 +7,7 @@ import Home from "./routes/telegram/home";
 import Channels from "./routes/telegram/channels";
 import Advertisers from "./routes/telegram/advertisers";
 import Deals from "./routes/telegram/deals";
+import { Presentation } from "./routes/telegram/presentation";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: "/tma",
         element: <Index />,
+      },
+      {
+        path: "/tma/presentation",
+        element: <Presentation />,
       },
       {
         path: "/tma/home",

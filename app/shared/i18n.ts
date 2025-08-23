@@ -1,6 +1,9 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+
+export const AppTitle = "Telegram Connect"
+
 const resources = {
   ru: {
     translation: {
@@ -15,7 +18,8 @@ const resources = {
         cancel: "Отмена",
         loading: "Загрузка..."
       }
-    }
+    },
+
   },
   en: {
     translation: {
