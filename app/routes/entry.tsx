@@ -1,15 +1,20 @@
-import { Navigate } from "react-router";
 import { isTMA } from "@telegram-apps/sdk-react";
-import { defaultLoader } from "~/shared/utils/loader";
+import { redirect } from "react-router";
 
-export const loader = defaultLoader;
-
-export const Entry = async () => {
-  const isTelegramApp = await isTMA();
-  
-  if (isTelegramApp) {
-    return <Navigate to="/tma/home" replace />;
-  } else {
-    return <Navigate to="/web/home" replace />;
+export async function loader() {
+  try {
+    const isTelegram = await isTMA();
+    if (isTelegram) {
+      return redirect("/tma/home");
+    } else {
+      return redirect("/web/home");
+    }
+  } catch (error) {
+    console.error("Error checking TMA:", error);
+    return redirect("/web/home");
   }
-};
+}
+
+export default function Entry() {
+  return null;
+}

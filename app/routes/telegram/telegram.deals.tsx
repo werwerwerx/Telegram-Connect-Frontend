@@ -1,6 +1,6 @@
 
 
-export const Deals = () => {
+export default function Deals() {
   return <div className="w-full h-full flex items-center justify-center">
     <div className="flex flex-col items-center justify-center">
       <h1 className="text-2xl font-bold">Deals</h1>

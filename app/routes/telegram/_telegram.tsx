@@ -14,7 +14,7 @@ export function shouldRevalidate() {
 }
 
 
-export function TelegramLayout() {
+export default function TelegramLayout() {
   const launchParams = useLaunchParams();
   const userLang = (launchParams.initData as any)?.user?.language_code || 'ru';
 

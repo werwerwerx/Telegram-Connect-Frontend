@@ -51,7 +51,7 @@ const EntryContent = async () => {
   return <Navigate to="/tma/home" />;
 };
 
-export const Entry = () => {
+export default function Entry() {
   return (
     <Suspense fallback={<LoadingFallback />}>
       <EntryContent />
