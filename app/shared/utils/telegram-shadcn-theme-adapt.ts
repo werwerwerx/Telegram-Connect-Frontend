@@ -50,57 +50,98 @@ const applyTelegramTheme = (theme: TelegramThemeParams) => {
     return;
   }
 
+  const isDark = theme.bg_color && parseInt(theme.bg_color.slice(1), 16) < 0x808080;
+  
+  if (isDark) {
+    root.classList.add("dark");
+  } else {
+    root.classList.remove("dark");
+  }
+
+  const existingStyle = document.getElementById('telegram-theme-override');
+  if (existingStyle) {
+    existingStyle.remove();
+  }
+
+  const style = document.createElement('style');
+  style.id = 'telegram-theme-override';
+  
+  let cssVars = 'html:root {';
+  
   if (theme.bg_color) {
-    root.style.setProperty("--background", hexToOklch(theme.bg_color));
-    root.style.setProperty("--card", hexToOklch(theme.bg_color));
-    root.style.setProperty("--popover", hexToOklch(theme.bg_color));
+    cssVars += `--background: ${hexToOklch(theme.bg_color)};`;
+    cssVars += `--card: ${hexToOklch(theme.bg_color)};`;
+    cssVars += `--popover: ${hexToOklch(theme.bg_color)};`;
   }
 
   if (theme.text_color) {
-    root.style.setProperty("--foreground", hexToOklch(theme.text_color));
-    root.style.setProperty("--card-foreground", hexToOklch(theme.text_color));
-    root.style.setProperty(
-      "--popover-foreground",
-      hexToOklch(theme.text_color)
-    );
+    cssVars += `--foreground: ${hexToOklch(theme.text_color)};`;
+    cssVars += `--card-foreground: ${hexToOklch(theme.text_color)};`;
+    cssVars += `--popover-foreground: ${hexToOklch(theme.text_color)};`;
   }
 
   if (theme.hint_color) {
-    root.style.setProperty("--muted-foreground", hexToOklch(theme.hint_color));
+    cssVars += `--muted-foreground: ${hexToOklch(theme.hint_color)};`;
   }
 
   if (theme.button_color) {
-    root.style.setProperty("--primary", hexToOklch(theme.button_color));
-    root.style.setProperty("--accent", hexToOklch(theme.button_color));
+    cssVars += `--primary: ${hexToOklch(theme.button_color)};`;
+    cssVars += `--accent: ${hexToOklch(theme.button_color)};`;
   }
 
   if (theme.button_text_color) {
-    root.style.setProperty(
-      "--primary-foreground",
-      hexToOklch(theme.button_text_color)
-    );
-    root.style.setProperty(
-      "--accent-foreground",
-      hexToOklch(theme.button_text_color)
-    );
+    cssVars += `--primary-foreground: ${hexToOklch(theme.button_text_color)};`;
+    cssVars += `--accent-foreground: ${hexToOklch(theme.button_text_color)};`;
   }
 
   if (theme.secondary_bg_color) {
-    root.style.setProperty("--secondary", hexToOklch(theme.secondary_bg_color));
-    root.style.setProperty("--muted", hexToOklch(theme.secondary_bg_color));
+    cssVars += `--secondary: ${hexToOklch(theme.secondary_bg_color)};`;
+    cssVars += `--muted: ${hexToOklch(theme.secondary_bg_color)};`;
   }
 
   if (theme.link_color) {
-    root.style.setProperty("--ring", hexToOklch(theme.link_color));
+    cssVars += `--ring: ${hexToOklch(theme.link_color)};`;
   }
 
-  const isDark =
-    theme.bg_color && parseInt(theme.bg_color.slice(1), 16) < 0x808080;
+  cssVars += '}';
+
   if (isDark) {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
+    cssVars += 'html:root.dark {';
+    if (theme.bg_color) {
+      cssVars += `--background: ${hexToOklch(theme.bg_color)};`;
+      cssVars += `--card: ${hexToOklch(theme.bg_color)};`;
+      cssVars += `--popover: ${hexToOklch(theme.bg_color)};`;
+    }
+    if (theme.text_color) {
+      cssVars += `--foreground: ${hexToOklch(theme.text_color)};`;
+      cssVars += `--card-foreground: ${hexToOklch(theme.text_color)};`;
+      cssVars += `--popover-foreground: ${hexToOklch(theme.text_color)};`;
+    }
+    if (theme.hint_color) {
+      cssVars += `--muted-foreground: ${hexToOklch(theme.hint_color)};`;
+    }
+    if (theme.button_color) {
+      cssVars += `--primary: ${hexToOklch(theme.button_color)};`;
+      cssVars += `--accent: ${hexToOklch(theme.button_color)};`;
+    }
+    if (theme.button_text_color) {
+      cssVars += `--primary-foreground: ${hexToOklch(theme.button_text_color)};`;
+      cssVars += `--accent-foreground: ${hexToOklch(theme.button_text_color)};`;
+    }
+    if (theme.secondary_bg_color) {
+      cssVars += `--secondary: ${hexToOklch(theme.secondary_bg_color)};`;
+      cssVars += `--muted: ${hexToOklch(theme.secondary_bg_color)};`;
+    }
+    if (theme.link_color) {
+      cssVars += `--ring: ${hexToOklch(theme.link_color)};`;
+    }
+    cssVars += '}';
   }
+
+  style.textContent = cssVars;
+  document.head.appendChild(style);
+
+  document.body.style.setProperty('color-scheme', isDark ? 'dark' : 'light');
 };
 
 export const TelegramShadcnThemeAdapt = (lp: RetrieveLPResult) => {
