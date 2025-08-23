@@ -5,6 +5,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { defaultLoader } from "~/shared/utils/loader";
+
+export const loader = defaultLoader;
 
 export function WebLayout() {
   return (

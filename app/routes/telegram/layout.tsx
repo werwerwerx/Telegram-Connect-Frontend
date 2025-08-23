@@ -8,6 +8,9 @@ import {
 import { TelegramShadcnThemeAdapter } from "~/shared/components/telegram-shadcn-theme-adapter";
 import { Navigation } from "~/shared/components/navigation";
 import { useLaunchParams } from "@telegram-apps/sdk-react";
+import { defaultLoader } from "~/shared/utils/loader";
+
+export const loader = defaultLoader;
 
 export function TelegramLayout() {
   const launchParams = useLaunchParams();
