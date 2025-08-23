@@ -150,16 +150,16 @@ export const Presentation = () => {
               <div className="flex flex-col items-center justify-center space-y-8 max-w-4xl mx-auto">
                 <div className="flex justify-center">
                   <img 
-                    src={`/mascot/${slide.mascotImgName}`} 
+                    src={`${import.meta.env.BASE_URL}mascot/${slide.mascotImgName}`} 
                     alt="Mascot" 
-                    className="w-32 h-32 md:w-40 md:h-40 object-contain"
+                    className="w-42 h-42 md:w-40 md:h-40 object-contain"
                   />
                 </div>
                 <div className="flex flex-col items-center justify-center gap-2">
-                <h1 className="text-2xl md:text-3xl lg:text-4xl leading-6 max-w-[76%] font-bold text-foreground">
+                <h1 className="text-2xl md:text-3xl lg:text-4xl leading-8 max-w-[76%] font-bold text-foreground">
                   {slide.heading}
                 </h1>
-                <p className="text-base md:text-lg lg:text-xl leading-4 text-muted-foreground max-w-[60%]">
+                <p className="text-base md:text-lg lg:text-xl leading-5 text-muted-foreground max-w-[60%]">
                   {slide.subHeading}
                 </p>
 
