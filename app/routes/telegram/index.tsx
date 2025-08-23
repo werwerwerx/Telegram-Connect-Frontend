@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { initializeTMA } from "~/shared/init-tma";
 import { retrieveLaunchParams } from "@telegram-apps/sdk-react";
-import { TelegramShadcnThemeAdapt } from "~/shared/components/telegram-shadcn-theme-adapt";
+import { TelegramShadcnThemeAdapt } from "~/shared/utils/telegram-shadcn-theme-adapt";
 import i18n from "~/shared/i18n";
 import { useNavigate } from "react-router";
 
-export default function Entry() {
+export default function Index() {
   const [isTMAReady, setIsTMAReady] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -40,7 +40,7 @@ export default function Entry() {
   }
 
   if (!isTMAReady) {
-    return <div>Загрузка...</div>;
+    return <div className="animate-pulse text-center w-screen h-screen flex items-center justify-center">Загрузка...</div>;
   }
 
   return <div>TMA готов!</div>;
