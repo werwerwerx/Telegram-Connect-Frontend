@@ -4,9 +4,9 @@ import { defaultLoader } from "~/shared/utils/loader";
 
 export const loader = defaultLoader;
 
-export const Entry = () => {
+export const Entry = async () => {
   const navigate = useNavigate();
-    if(isTMA()) {
+    if(await isTMA()) {
       navigate("/tma/home")
     }else{
       navigate("/web/home");
