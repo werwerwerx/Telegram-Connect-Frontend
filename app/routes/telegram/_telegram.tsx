@@ -5,7 +5,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-import { TelegramShadcnThemeAdapter } from "~/shared/components/telegram-shadcn-theme-adapter";
+import { TelegramShadcnThemeAdapt } from "~/shared/components/telegram-shadcn-theme-adapt";
 import { Navigation } from "~/shared/components/navigation";
 import { useLaunchParams } from "@telegram-apps/sdk-react";
 
@@ -15,11 +15,8 @@ export function shouldRevalidate() {
 
 
 export default function TelegramLayout() {
-  const launchParams = useLaunchParams();
-  const userLang = (launchParams.initData as any)?.user?.language_code || 'ru';
-
   return (
-    <html lang={userLang}>
+    <html>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -31,11 +28,10 @@ export default function TelegramLayout() {
         <Links />
       </head>
       <body className="bg-background text-foreground">
-        <TelegramShadcnThemeAdapter />
-        <div className="min-h-screen pb-16">
-          <Outlet />
-        </div>
-        <Navigation />
+          <div className="min-h-screen pb-16">
+            <Outlet />
+          </div>
+          <Navigation />
         <ScrollRestoration />
         <Scripts />
       </body>
