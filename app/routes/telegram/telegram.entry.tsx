@@ -14,9 +14,6 @@ import { Navigate } from "react-router";
 import { Suspense } from "react";
 import { TelegramShadcnThemeAdapter } from "~/shared/components/telegram-shadcn-theme-adapter";
 import i18n from "~/shared/i18n";
-import { defaultLoader } from "~/shared/utils/loader";
-
-export const loader = defaultLoader;
 
 const LoadingFallback = () => {
   const { t } = useTranslation();

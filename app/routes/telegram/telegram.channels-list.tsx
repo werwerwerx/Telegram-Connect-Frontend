@@ -1,6 +1,4 @@
-import { defaultLoader } from "~/shared/utils/loader";
 
-export const loader = defaultLoader;
 
 export const ChannelsList = () => {
   return (

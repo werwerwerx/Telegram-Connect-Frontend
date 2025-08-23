@@ -1,7 +1,3 @@
-import { Navigation } from "~/shared/components/navigation";
-import { defaultLoader } from "~/shared/utils/loader";
-
-export const loader = defaultLoader;
 
 export const Home = () => {
   return (
