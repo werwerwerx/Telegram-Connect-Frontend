@@ -18,6 +18,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (lp.tgWebAppData?.user) {
+      console.log("launch parans is properly set", lp.tgWebAppData.user)
       setUser({
         id: lp.tgWebAppData.user.id,
         first_name: lp.tgWebAppData.user.first_name || "",
