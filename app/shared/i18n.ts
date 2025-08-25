@@ -16,7 +16,9 @@ const resources = {
       common: {
         save: "Сохранить",
         cancel: "Отмена",
-        loading: "Загрузка..."
+        loading: "Загрузка...",
+        clientUnknownError: "Ой! Произошла неизвестная ошибка",
+        clientUnknownErrorTryTo: "Попробуйте перезагрузить страницу"
       }
     },
 
@@ -32,7 +34,9 @@ const resources = {
       common: {
         save: "Save",
         cancel: "Cancel",
-        loading: "Loading..."
+        loading: "Loading...",
+        clientUnknownError: "Oops! An error occurred",
+        clientUnknownErrorTryTo: "Try to reload the page",
       }
     }
   }

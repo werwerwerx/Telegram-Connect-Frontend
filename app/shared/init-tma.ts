@@ -1,4 +1,5 @@
-import { restoreInitData, setDebug, miniApp, bindViewportCssVars, mountViewport, mountBackButton, init, bindThemeParamsCssVars } from "@telegram-apps/sdk-react";
+import { restoreInitData, setDebug, miniApp, mountBackButton, init } from "@telegram-apps/sdk-react";
+import { oklchStringToRgb } from "./utils/oklch-to-rgb";
 
 export const initializeTMA = async () => {
   await init();
@@ -7,13 +8,18 @@ export const initializeTMA = async () => {
   setDebug(true);
 
   if (miniApp.mountSync.isAvailable()) {
-    miniApp.mountSync();
-    bindThemeParamsCssVars();
-  }
+    if (!miniApp.isMounted()) {
+      miniApp.mountSync();
+    }
 
-  if (mountViewport.isAvailable()) {
-    await mountViewport();
-    bindViewportCssVars();
+    const bgColor = document.documentElement.style.getPropertyValue('--background');
+    const foregroundColor = document.documentElement.style.getPropertyValue('--foreground');
+    const rgb = oklchStringToRgb(bgColor);
+    const foregroundRgb = oklchStringToRgb(foregroundColor);
+    if (rgb && foregroundRgb) {
+      miniApp.setHeaderColor(`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`);
+      miniApp.setBottomBarColor(`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`);
+      miniApp.setHeaderColor(`rgb(${foregroundRgb.r}, ${foregroundRgb.g}, ${foregroundRgb.b})`);
+    }
   }
-
-};
+}

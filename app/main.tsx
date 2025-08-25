@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
+import "./shared/i18n";
 import App from "./root";
 import Index from "./routes/telegram";
 import Home from "./routes/telegram/home";

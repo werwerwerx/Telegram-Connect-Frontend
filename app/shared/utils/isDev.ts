@@ -1,3 +1,3 @@
 export const isDev = () => {
-  return import.meta.env.VITE_NODE_ENV === "development";
+  return import.meta.env.VITE_NODE === "dev";
 }
