@@ -5,17 +5,18 @@ import "./app.css";
 import { isDev } from "./shared/utils/isDev";
 import { useTranslation } from "react-i18next";
 import { MascotWidjet } from "./shared/components/mascotWidjet";
-import { TelegramBotApiProvider } from "./shared/telgram-bot.api";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-
+const queryClient = new QueryClient({
+});
 export default function App() {
   const { t } = useTranslation();
   return (
     <div className="min-h-screen bg-background text-foreground w-screen dark font-sans overflow-x-hidden">
       <ErrorBoundary fallbackRender={({error}) => <ErrorFallback error={error} t={t} />}>
-      <TelegramBotApiProvider>
-          <Outlet />
-      </TelegramBotApiProvider>
+        <QueryClientProvider client={queryClient}>
+            <Outlet />
+        </QueryClientProvider>
       </ErrorBoundary>
     </div>
   );

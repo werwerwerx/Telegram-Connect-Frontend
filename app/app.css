@@ -10,7 +10,6 @@
 *{
   box-sizing: border-box;
 }
-
 :root {
   overflow-x: hidden;
   --background: oklch(0.9821 0 0);

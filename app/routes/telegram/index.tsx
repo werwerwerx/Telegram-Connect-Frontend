@@ -3,14 +3,12 @@ import { initializeTMA } from "~/shared/init-tma";
 import { retrieveLaunchParams, useRawInitData } from "@telegram-apps/sdk-react";
 import i18n from "~/shared/i18n";
 import { useNavigate } from "react-router";
-import { useTelegramBotApi } from "~/shared/telgram-bot.api";
 
 
 
 export default function Index() {
   const [isTMAReady, setIsTMAReady] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  const { createApi } = useTelegramBotApi();
   const rawInitData = useRawInitData();
   const navigate = useNavigate();
   useEffect(() => {
@@ -24,7 +22,6 @@ export default function Index() {
   useEffect(() => {
     if (isTMAReady) {
       const launchParams = retrieveLaunchParams();
-      createApi();
       if (launchParams) {
         if (launchParams.tgWebAppData?.user?.language_code === "ru") {
           i18n.changeLanguage("ru");

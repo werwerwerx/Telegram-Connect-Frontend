@@ -64,7 +64,7 @@ export const Navigation = () => {
   }];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-card border-border shadow-lg py-2 px-[10%] flex justify-between items-center pb-5 min-w-screen">
+    <div className="fixed bottom-0 left-0 right-0 bg-card border-border shadow-lg py-2 px-[10%] flex justify-between items-center pb-6 min-w-screen">
       {NavItems.map((item) => (
         <Link key={item.navTo} to={item.navTo} className={cn("flex flex-col items-center justify-center gap-1 text-muted-foreground text-[12px] font-normal tracking-widest transition-colors duration-300", {
           "!text-primary": location.pathname === item.navTo,

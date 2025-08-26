@@ -15,6 +15,7 @@ import {
 } from "~/shared/components/ui-kit/chart";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from "recharts";
 import i18n from "~/shared/i18n";
+import { useChannels } from "~/features/channels";
 // что можно отобразить в профиле
 // кол-во заказов
 // состояние реферальной программы
@@ -54,6 +55,8 @@ i18n.addResourceBundle("en", "profile", {
 });
 
 export default function Profile() {
+
+  
   const data = useLaunchParams();
   return (
     <div className="min-h-screen bg-background">
@@ -105,6 +108,9 @@ export default function Profile() {
 }
 
 export const StatsCards = () => {
+  const { getChannelsQuery } = useChannels();
+
+  const { isPending, data: channels } = getChannelsQuery;
   return (
     <div className="grid grid-cols-2 gap-2">
       {/* Карточка клиентов */}
@@ -125,7 +131,7 @@ export const StatsCards = () => {
             Каналы
             <MessageSquare className="w-3 h-3 text-primary" />
           </CardDescription>
-          <CardTitle className="text-xl font-semibold">12</CardTitle>
+          <CardTitle className="text-xl font-semibold">{channels?.length}</CardTitle>
         </CardHeader>
       </Card>
 
