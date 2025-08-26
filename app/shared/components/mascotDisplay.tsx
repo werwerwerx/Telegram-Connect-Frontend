@@ -1,6 +1,6 @@
 import { cn } from "../lib/utils";
 
-export type MascotMood = "hi" | "surprise" | "felt-shy" | "rich" | "crying" | "prays";
+export type MascotMood = "hi" | "surprise" | "felt-shy" | "rich" | "crying" | "prays" | "gocha" | "lovable" | "happy";
 
 export const MascotDisplay = ({ 
   mood, 
@@ -17,7 +17,10 @@ export const MascotDisplay = ({
     "felt-shy": `mascot/mascot-felt-shy.gif`,
     "rich": `mascot/mascot-rich.gif`,
     "crying": `mascot/mascot-crying.gif`,
-    "prays": `mascot/mascot-prays.gif`
+    "prays": `mascot/mascot-prays.gif`,
+    "gocha" : `mascot/mascot-gocha.gif`,
+    "lovable" : `mascot/mascot-in-love.gif`,
+    "happy" : `mascot/mascot-happy.gif`
   }
 
   return (

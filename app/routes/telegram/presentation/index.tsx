@@ -11,108 +11,122 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "~/shared/components/ui-kit/carousel";
+import type { MascotMood } from "~/shared/components/mascotDisplay";
+import { miniApp, postEvent, supports } from "@telegram-apps/sdk-react";
+import { useNavigate } from "react-router";
 
-const PresentationResourceRu: {
+type PresentationItem = {
   heading: string;
   buttonText: string;
   subHeading: string;
-  mascotImgName: string;
-}[] = [
+  mascotMood: MascotMood;
+};
+
+const PresentationResourceRu: PresentationItem[] = [
   {
     heading: `Добро пожаловать в ${AppTitle}!`,
     subHeading:
       "Сервис, который связывает рекламодателей и владельцев Telegram-каналов.",
     buttonText: "Узнать больше",
-    mascotImgName: "mascot-hi.gif",
+    mascotMood: "hi",
   },
   {
     heading: "Только проверенные каналы",
     subHeading:
       "Мы вручную верифицируем каждого автора, чтобы вы были уверены в качестве аудитории и безопасности сделок.",
     buttonText: "Как это работает?",
-    mascotImgName: "mascot-surprise.gif",
+    mascotMood: "surprise",
   },
   {
     heading: "Никаких сделок!",
     subHeading:
       "Наша система автоматически проверит наличие соблюдения условий обеих сторон.",
     buttonText: "Далее",
-    mascotImgName: "mascot-felt-shy.gif",
+    mascotMood: "felt-shy",
   },
   {
     heading: "Поиск рекламы в один клик",
     subHeading:
       "Забудьте о ручном поиске. Наша платформа найдет для вас идеального партнера — просто нажмите кнопку.",
     buttonText: "Начать!",
-    mascotImgName: "mascot-rich.gif",
+    mascotMood: "happy",
+  },
+];
+const FinalPresentationResourceRu: PresentationItem = {
+  heading: "Мы только начинаем наш путь!",
+  subHeading: "И те кто присоединяется к нам сейчас, получают самые выгодные условия!",
+  buttonText: "Получить!",
+  mascotMood: "lovable",
+};
+
+const PresentationResourceEn: PresentationItem[] = [
+  {
+    heading: `Welcome to ${AppTitle}!`,
+    subHeading:
+      "A service that connects advertisers and Telegram channel owners.",
+    buttonText: "Learn More",
+    mascotMood: "hi",
   },
   {
-    heading:
-      "Проект на стадии разработки, если ты заинтересован в том, чтобы помочь нам, то дай знать!",
-    subHeading: "Мы будем очень благодарны за любую помощь!",
-    buttonText: "Связаться с нами",
-    mascotImgName: "mascot-crying.gif",
+    heading: "Only verified channels",
+    subHeading:
+      "We manually verify each author to ensure you get quality audience and transaction security.",
+    buttonText: "How it works?",
+    mascotMood: "surprise",
+  },
+  {
+    heading: "No deals needed!",
+    subHeading:
+      "Our system automatically checks that both parties comply with the terms.",
+    buttonText: "Next",
+    mascotMood: "felt-shy",
+  },
+  {
+    heading: "One-click ad search",
+    subHeading:
+      "Forget manual searching. Our platform will find the perfect partner for you — just press the button.",
+    buttonText: "Get Started!",
+    mascotMood: "happy",
   },
 ];
 
-const PresentationResourceEn: {
-  heading: string;
-  buttonText: string;
-  subHeading: string;
-  mascotImgName: string;
-}[] = [
-  {
-    heading: `Hello! This is ${AppTitle}!`,
-    subHeading: "Service for connecting advertisers and channels",
-    buttonText: "Learn More",
-    mascotImgName: "mascot-hi.gif",
-  },
-  {
-    heading: "Why us?",
-    subHeading:
-      "We have only verified channels and their owners, and we guarantee complete safety and transparency of all transactions!",
-    buttonText: "How it works?",
-    mascotImgName: "mascot-surprise.gif",
-  },
-  {
-    heading:
-      "Our bot monitors posts in Telegram channels and verifies their creators",
-    subHeading: "And Pavel Durov himself conducts the deals!",
-    buttonText: "Next",
-    mascotImgName: "mascot-felt-shy.gif",
-  },
-  {
-    heading:
-      "Now you won't have to search for channels or advertisers yourself",
-    subHeading: "You just need to press one button!",
-    buttonText: "Let's go!",
-    mascotImgName: "mascot-rich.gif",
-  },
-  {
-    heading:
-      "The project is in development stage, if you're interested in helping us, let us know!",
-    subHeading: "We will be very grateful for any help!",
-    buttonText: "Contact us",
-    mascotImgName: "mascot-crying.gif",
-  },
-];
+const FinalPresentationResourceEn: PresentationItem = {
+  heading: "We're just starting our journey!",
+  subHeading: "Those who join us now get the most favorable conditions!",
+  buttonText: "Get it!",
+  mascotMood: "lovable",
+};
 
 i18n.addResources("ru", "presentation", PresentationResourceRu);
 i18n.addResources("en", "presentation", PresentationResourceEn);
 
-const SlideContent = ({ slide, api }: { slide: any; api: CarouselApi | undefined }) => {
+// Добавляем финальные ресурсы в основной namespace с префиксом "final"
+i18n.addResources("ru", "presentation", {
+  "final.heading": FinalPresentationResourceRu.heading,
+  "final.subHeading": FinalPresentationResourceRu.subHeading,
+  "final.buttonText": FinalPresentationResourceRu.buttonText,
+});
+i18n.addResources("en", "presentation", {
+  "final.heading": FinalPresentationResourceEn.heading,
+  "final.subHeading": FinalPresentationResourceEn.subHeading,
+  "final.buttonText": FinalPresentationResourceEn.buttonText,
+});
+
+const SlideContent = ({
+  slide,
+  api,
+}: {
+  slide: any;
+  api: CarouselApi | undefined;
+}) => {
   const handleNext = () => {
     api?.scrollNext();
   };
-  
+
   return (
     <div className="min-h-screen w-screen flex flex-col items-center justify-center p-6 md:p-8 text-center">
       <MascotWidjet
-        mood={
-          slide.mascotImgName
-            .replace("mascot-", "")
-            .replace(".gif", "") as any
-        }
+        mood={slide.mascotMood}
         title={slide.heading}
         subtitle={slide.subHeading}
       />
@@ -131,8 +145,8 @@ export const Presentation = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
-
-  const slides =
+  const navigate = useNavigate();
+  const slidesContent =
     i18n.language === "en" ? PresentationResourceEn : PresentationResourceRu;
 
   useEffect(() => {
@@ -152,13 +166,38 @@ export const Presentation = () => {
     <div className="min-h-screen w-screen overflow-hidden relative">
       <Carousel setApi={setApi} className="h-full w-full">
         <CarouselContent>
-          {slides.map((slide, index) => (
+          {slidesContent.map((slide, index) => (
             <CarouselItem key={index} className="basis-full">
               <SlideContent slide={slide} api={api} />
             </CarouselItem>
           ))}
+
+          {/* final slide */}
+          <CarouselItem className="basis-full">
+            <div className="min-h-screen w-screen flex flex-col items-center justify-center p-6 md:p-8 text-center">
+              <MascotWidjet
+                mood={FinalPresentationResourceRu.mascotMood}
+                title={t("final.heading") as string}
+                subtitle={t("final.subHeading") as string}
+              />
+              <Button
+                onClick={() => {
+                  console.log("send event to bot");
+                  navigate("/tma/profile", {
+                    replace: true
+                  })
+                }}
+                className="bg-primary text-primary-foreground px-6 md:px-8 py-3 md:py-4 rounded-lg text-base md:text-lg font-semibold hover:bg-primary/90 transition-colors shadow-primary shadow-lg mt-4"
+              >
+                {/* TODO: add action to bind bot and chanel, add referal link creation */}
+                {t("final.buttonText")}
+              </Button>
+
+
+            </div>
+          </CarouselItem>
         </CarouselContent>
-        
+
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
           {Array.from({ length: count }).map((_, index) => (
             <button
@@ -170,9 +209,6 @@ export const Presentation = () => {
             />
           ))}
         </div>
-
-        <CarouselPrevious className="absolute left-4 top-1/2 transform -translate-y-1/2" />
-        <CarouselNext className="absolute right-4 top-1/2 transform -translate-y-1/2" />
       </Carousel>
     </div>
   );
